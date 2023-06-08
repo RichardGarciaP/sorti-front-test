@@ -1,0 +1,11 @@
+<div class="list">
+    <div class="list-title-container">
+        <h3 class="title">{{status}}</h3>
+        <a *ngIf="status === 'pending'" mat-flat-button color="primary" routerLink="/todo/trash">Ver Papelera</a>
+    </div>
+    <div class="list-items">
+        <div *ngFor="let todo of toDos" class="card-container">
+            <app-todo-card [todo]="todo"></app-todo-card>
+        </div>
+    </div>
+</div>

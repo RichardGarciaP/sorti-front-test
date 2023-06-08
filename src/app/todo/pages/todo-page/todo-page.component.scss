@@ -1,0 +1,12 @@
+.list-container { 
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+
+    .todo-col{
+        flex: 1;
+        height: calc(100vh - 100px);
+    }
+}

@@ -1,0 +1,23 @@
+.header {
+    background-color: #252850;
+    display: flex;
+    justify-content: space-between;
+
+    .close-session{
+        color: white;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    .title-container{
+        color: white;
+        display: flex;
+        align-items: center;
+    }
+
+    .mat-icon{
+        margin-right: 1rem;
+    }
+}

@@ -1,0 +1,14 @@
+<div class="list-container">
+    <div class="todo-col">
+        <app-todo-list status="pending" [todoList]="todoList" *ngIf="todoList.length > 0"></app-todo-list>
+        <app-todo-list status="pending" *ngIf="todoList.length === 0"></app-todo-list>
+    </div>
+    <div class="todo-col">
+        <app-todo-list status="finished" [todoList]="todoList"  *ngIf="todoList.length > 0"></app-todo-list>
+        <app-todo-list status="finished" *ngIf="todoList.length === 0"></app-todo-list>
+
+    </div>
+    <div class="todo-col">
+        <app-todo-form [todoList]="todoList"></app-todo-form>
+    </div>
+</div>

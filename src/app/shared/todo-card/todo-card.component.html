@@ -1,0 +1,16 @@
+<mat-card class="todo-card">
+    <mat-card-header>
+        <mat-card-title>{{todo.title}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p class="description">{{todo.description}}</p>
+        <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+
+        <button *ngIf="todo.status !== 'finished' && todo.status !== 'deleted'" mat-button color="primary" (click)="finishToDo(todo.id)">Finalizar</button>
+        <button *ngIf="todo.status === 'deleted'" mat-button color="primary" (click)="restoreToDo(todo.id)">Restaurar</button>
+        <button mat-button color="warn" *ngIf="todo.status !== 'deleted'" (click)="deleteToDo(todo.id)">Eliminar</button>
+        <button mat-button color="warn" *ngIf="todo.status === 'deleted'" (click)="deleteFromTrash(todo.id)">Eliminar</button>
+    </mat-card-actions>
+</mat-card>

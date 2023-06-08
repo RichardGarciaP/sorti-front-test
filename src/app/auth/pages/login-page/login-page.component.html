@@ -1,0 +1,36 @@
+<div class="login-container">
+    <div class="login-box">
+        <div class="title-container">
+            <mat-icon>assignment</mat-icon> 
+            <h1>Login</h1>
+        </div>
+        <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="login()">
+            <mat-form-field class="form-field">
+                <mat-label>Username</mat-label>
+                <input type="text" matInput
+                       placeholder="Ex. johndoe24" formControlName="username">
+                <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                  El usuario es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="form-field">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput
+                       placeholder="****************" formControlName="password">
+                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                  La contraseña es <strong>requerida</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <p *ngIf="errorMessage" class="error-text">
+                  {{errorMessage}}
+              </p>
+
+            <button mat-button mat-flat-button color="primary"  type="submit">
+                Iniciar sesion
+            </button>
+
+            <a class="new-account" routerLink="/auth/register">Crear una cuenta</a>
+        </form>
+    </div>
+</div>

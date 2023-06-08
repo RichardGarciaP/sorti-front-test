@@ -1,0 +1,33 @@
+<div class="list">
+    <h3 class="title">New ToDo</h3>
+    <div class="inner-wrapper">
+        <form autocomplete="off" [formGroup]="todoForm" (ngSubmit)="createToDo()">
+            <mat-form-field class="form-field">
+                <mat-label>Titulo</mat-label>
+                <input type="text" matInput
+                       placeholder="Tarea 1" formControlName="title">
+                <mat-error *ngIf="todoForm.get('title')?.hasError('required')">
+                  El titulo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="form-field">
+                <mat-label>Descripcion</mat-label>
+                <textarea type="text" matInput
+                       placeholder="Esta es una descripcion" formControlName="description"></textarea>
+                <mat-error *ngIf="todoForm.get('description')?.hasError('required')">
+                  La descripcion es <strong>requerida</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <p *ngIf="errorMessage" class="error-text">
+                  {{errorMessage}}
+              </p>
+
+            <button mat-button mat-flat-button color="primary"  type="submit">
+                Crear tarea
+            </button>
+
+        </form>    
+    </div>
+
+</div>

@@ -1,1 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background-color:#191919;
+    color: #fff;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.page-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    padding: 1rem 1rem;
+}
+
+.login-container{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .login-box {
+        background-color:#303030;
+        padding: 2rem;
+        width: 100%;
+        max-width: 300px;
+        border-radius: 10px;
+
+
+        h1{
+            font-size: 1.8rem;
+        }
+
+
+        .title-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding-bottom: 1rem;
+            .mat-icon{
+                width: 30px;
+                height: 30px;
+                font-size: 30px;
+                margin-right: 0.5rem;
+            }
+
+            
+        }
+    }
+
+}
+
+form{
+    .form-field{
+        width: 100%;
+    }
+
+
+    .new-account{
+        margin-right: 0;
+        display: block;
+        color: white;
+    }
+
+    button{
+        margin-top: 1rem;
+        width: 100%;
+        padding: 1.5rem 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .error-text{
+        font-size: 0.9rem;
+        text-align: center;
+        color: red;
+        line-height: 0;
+        margin:0;
+        margin-top: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+}
