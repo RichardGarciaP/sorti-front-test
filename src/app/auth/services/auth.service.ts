@@ -7,59 +7,63 @@ import { Router } from '@angular/router';
 import { enviroment } from 'src/environments/environments';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private baseUrl = enviroment.API_URL;
-  private user?:User;
+  private user?: User;
 
-  private _http = inject( HttpClient );
-  private _cookieService = inject(CookieService)
+  private _http = inject(HttpClient);
+  private _cookieService = inject(CookieService);
   private _router = inject(Router);
 
-  get currentUser():User | undefined {
-    if(!this.user) return undefined;
+  get currentUser(): User | undefined {
+    if (!this.user) return undefined;
 
-    return {...this.user };
+    return { ...this.user };
   }
 
-
-
-  isAuthenticated():boolean {
-    return  !!localStorage.getItem('user-jwt');
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('user-jwt');
   }
 
-  getUser():User {
-    return  JSON.parse(localStorage.getItem('user') ?? '');
+  getUser(): User {
+    return JSON.parse(localStorage.getItem('user') ?? '');
   }
 
-  getToken():string {
-    return localStorage.getItem('user-jwt') ?? ''
+  getToken(): string {
+    return localStorage.getItem('user-jwt') ?? '';
   }
 
-
-
-  signIn(username:string, password:string):Observable<UserResponse>{
-    return this._http.post<UserResponse>(`${this.baseUrl}/user/sign-in`, {username, password})
-    .pipe(
-      tap((response:UserResponse)=> this.user = response.data.user),
-      tap((response: UserResponse) => localStorage.setItem('user-jwt',  response.token)),
-      tap((response:UserResponse) => localStorage.setItem('user', JSON.stringify( response?.data?.user )))
-
-    )
+  signIn(username: string, password: string): Observable<UserResponse> {
+    return this._http
+      .post<UserResponse>(`${this.baseUrl}/user/sign-in`, {
+        username,
+        password,
+      })
+      .pipe(
+        tap((response: UserResponse) => (this.user = response.data.user)),
+        tap((response: UserResponse) =>
+          localStorage.setItem('user-jwt', response.token)
+        ),
+        tap((response: UserResponse) =>
+          localStorage.setItem('user', JSON.stringify(response?.data?.user))
+        ),
+        tap((response: UserResponse) => this._router.navigateByUrl('/todo'))
+      );
   }
 
-  signUp(username:string, password: string):Observable<UserResponse>{
-    return this._http.post<UserResponse>(`${this.baseUrl}/user/sign-up`, {username, password})
+  signUp(username: string, password: string): Observable<UserResponse> {
+    return this._http.post<UserResponse>(`${this.baseUrl}/user/sign-up`, {
+      username,
+      password,
+    });
   }
 
+  logout(): void {
+    localStorage.removeItem('user-jwt');
+    localStorage.removeItem('user');
 
-  logout():void {
-    localStorage.removeItem('user-jwt')
-    localStorage.removeItem('user')
-
-    this._router.navigateByUrl('/auth/login')
+    this._router.navigateByUrl('/auth/login');
   }
-
 }

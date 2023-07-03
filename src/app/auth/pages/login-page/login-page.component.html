@@ -22,8 +22,8 @@
                 </mat-error>
               </mat-form-field>
 
-              <p *ngIf="errorMessage" class="error-text">
-                  {{errorMessage}}
+              <p *ngIf="(auth$ | async)" class="error-text">
+                {{auth$ | async | json}}
               </p>
 
             <button mat-button mat-flat-button color="primary"  type="submit">
