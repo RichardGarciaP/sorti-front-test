@@ -1,4 +1,4 @@
-<div class="list">
+<div class="list" (drop)="onDropEntry($event)" (dragover)="allowDrop($event)">
     <div class="list-title-container">
         <h3 class="title">{{status}}</h3>
         <a *ngIf="status === 'pending'" mat-flat-button color="primary" routerLink="/todo/trash">Ver Papelera</a>

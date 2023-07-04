@@ -1,6 +1,7 @@
+<div draggable="true" (dragstart)="onDragStart($event)" (dragend)="onDragEnd()">
 <mat-card class="todo-card">
     <mat-card-header>
-        <mat-card-title>{{todo.title}}</mat-card-title>
+        <mat-card-title>{{todo.id}} - {{todo.title}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <p class="description">{{todo.description}}</p>
@@ -14,3 +15,4 @@
         <button mat-button color="warn" *ngIf="todo.status === 'deleted'" (click)="deleteFromTrash(todo.id)">Eliminar</button>
     </mat-card-actions>
 </mat-card>
+</div>

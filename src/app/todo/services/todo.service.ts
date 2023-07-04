@@ -5,44 +5,57 @@ import { ToDo, ToDoResponse } from '../interfaces/todo.interface';
 import { enviroment } from 'src/environments/environments';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TodoService {
   private baseUrl = enviroment.API_URL;
-  private _http = inject( HttpClient );
-  todoList:ToDo[] = [];
-
+  private _http = inject(HttpClient);
+  private todos?: ToDo[];
   private dataSubject = new BehaviorSubject<any>(null);
   public data$ = this.dataSubject.asObservable();
 
-
-  updateData(data:ToDo[]){
-    this.dataSubject.next(data);
-
+  set setTodosList(todos: ToDo[]) {
+    this.todos = todos;
   }
 
+  get todoList() {
+    return this.todos;
+  }
 
-  getToDos():Observable<ToDoResponse>{
+  updateData(data: ToDo[]) {
+    this.dataSubject.next(data);
+  }
+
+  getToDos(): Observable<ToDoResponse> {
     return this._http.post<ToDoResponse>(`${this.baseUrl}/todo`, {});
   }
 
-  createToDo(title: string, description:string):Observable<ToDoResponse> {
-    return this._http.post<ToDoResponse>(`${this.baseUrl}/todo/create`, {title, description});
+  createToDo(title: string, description: string): Observable<ToDoResponse> {
+    return this._http.post<ToDoResponse>(`${this.baseUrl}/todo/create`, {
+      title,
+      description,
+    });
   }
 
-  updateWithToFinish(id:number): Observable<ToDoResponse> {
-    return this._http.patch<ToDoResponse>(`${this.baseUrl}/todo/${id}`, {status: 'finished'});
-  } 
-
-  restoreToDo(id:number): Observable<ToDoResponse> {
-    return this._http.patch<ToDoResponse>(`${this.baseUrl}/todo/${id}`, {status: 'pending'});
-  } 
-
-  deleteToDo(id:number):Observable<ToDoResponse>{
-    return this._http.patch<ToDoResponse>(`${this.baseUrl}/todo/${id}`, {status: 'deleted'});
+  updateWithToFinish(id: number): Observable<ToDoResponse> {
+    return this._http.patch<ToDoResponse>(`${this.baseUrl}/todo/${id}`, {
+      status: 'finished',
+    });
   }
 
-  deleteFromTrash(id:number):Observable<any>{
+  restoreToDo(id: number): Observable<ToDoResponse> {
+    return this._http.patch<ToDoResponse>(`${this.baseUrl}/todo/${id}`, {
+      status: 'pending',
+    });
+  }
+
+  deleteToDo(id: number): Observable<ToDoResponse> {
+    return this._http.patch<ToDoResponse>(`${this.baseUrl}/todo/${id}`, {
+      status: 'deleted',
+    });
+  }
+
+  deleteFromTrash(id: number): Observable<any> {
     return this._http.delete<ToDoResponse>(`${this.baseUrl}/todo/${id}`);
   }
 }

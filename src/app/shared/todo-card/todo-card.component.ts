@@ -7,72 +7,86 @@ import { reload } from 'src/app/utils/utils';
 @Component({
   selector: 'app-todo-card',
   templateUrl: './todo-card.component.html',
-  styleUrls: ['./todo-card.component.scss']
+  styleUrls: ['./todo-card.component.scss'],
 })
 export class TodoCardComponent implements OnInit {
   private todoService = inject(TodoService);
   private coreService = inject(CoreService);
 
-  @Input() todo:ToDo = {};
-
+  @Input() todo: ToDo = {};
 
   ngOnInit(): void {
-    if(!this.todo){
+    if (!this.todo) {
       throw new Error('ToDo data not found');
-    }    
+    }
   }
 
-  finishToDo(id?:number):void{
-    if(!id){
+  finishToDo(id?: number): void {
+    if (!id) {
       throw new Error('Id  not found');
     }
     this.todoService.updateWithToFinish(id).subscribe({
-      next:(res)=>{
-        this.coreService.openSnackBar('La tarea ha sido finalizada')
-        reload()
+      next: (res) => {
+        this.coreService.openSnackBar('La tarea ha sido finalizada');
+        reload();
       },
       error: (error) => {
-        this.coreService.openSnackBar(error?.error?.message)
-      }
-    })
+        this.coreService.openSnackBar(error?.error?.message);
+      },
+    });
   }
-  
-  deleteFromTrash(id?:number):void{
-    if(!id){
+
+  deleteFromTrash(id?: number): void {
+    if (!id) {
       throw new Error('Id  not found');
     }
     this.todoService.deleteFromTrash(id).subscribe({
-      next:(res)=>{
-        this.coreService.openSnackBar('La tarea ha sido eliminada')
-        reload();     
+      next: (res) => {
+        this.coreService.openSnackBar('La tarea ha sido eliminada');
+        reload();
       },
-      error: (error) => { this.coreService.openSnackBar(error?.error.message)}
-    })
+      error: (error) => {
+        this.coreService.openSnackBar(error?.error.message);
+      },
+    });
   }
-  deleteToDo(id?:number):void{
-    if(!id){
+  deleteToDo(id?: number): void {
+    if (!id) {
       throw new Error('Id  not found');
     }
     this.todoService.deleteToDo(id).subscribe({
-      next:(res)=>{
-        this.coreService.openSnackBar('La tarea ha sido eliminada')
-        reload();     
+      next: (res) => {
+        this.coreService.openSnackBar('La tarea ha sido eliminada');
+        reload();
       },
-      error: (error) => { this.coreService.openSnackBar(error?.error.message)}
-    })
+      error: (error) => {
+        this.coreService.openSnackBar(error?.error.message);
+      },
+    });
   }
 
-  restoreToDo(id?:number):void{
-    if(!id){
+  restoreToDo(id?: number): void {
+    if (!id) {
       throw new Error('Id  not found');
     }
     this.todoService.restoreToDo(id).subscribe({
-      next:(res)=> {        
-        this.coreService.openSnackBar('La tarea ha sido restaurada')
+      next: (res) => {
+        this.coreService.openSnackBar('La tarea ha sido restaurada');
       },
-      error: (error) => { this.coreService.openSnackBar(error?.error.message)}
-    })
+      error: (error) => {
+        this.coreService.openSnackBar(error?.error.message);
+      },
+    });
   }
 
+  public onDragStart(event: DragEvent): void {
+    console.log('drag event', event);
+    if (this.todo) {
+      event.dataTransfer?.setData('todo', this.todo.id!.toString());
+    }
+  }
 
+  public onDragEnd(): void {
+    console.log('drag event end');
+  }
 }
